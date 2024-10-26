@@ -7,9 +7,13 @@ class Node:
         self.max_len = len(state)
         self.score = score_func(state)
 
-    # for nonstandard heap comparison
+    # score comparison
     def __lt__(self, other: 'Node'):
         return self.score < other.score
+    
+    # state comparison
+    def isGoal(self, goal_state: 'Node') -> bool:
+        return self.state == goal_state.get_state()
     
     # so we can print(Node) directly
     def __repr__(self):
@@ -19,6 +23,10 @@ class Node:
             if (tile + 1) % self.cutoff == 0 and tile != len(self.state) - 1:
                 result += "\n"
         return result
+    
+
+    def get_state(self):
+        return self.state
 
 class Problem:
     def __init__(self, puzzle_type: int, initial_state: list, heuristic: callable) -> None:
