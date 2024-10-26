@@ -2,6 +2,13 @@
 
 #imports here
 
+def print_puzzle(puzzle):
+    for tile in range(len(puzzle)):
+        print(puzzle[tile])
+        if (tile % 3 == 0):
+            print()
+    print()
+
 def welcome_message():
     print(f"Welcome to Ram and Samyak 8 puzzle solver.")
     print("Type '1' to use a default puzzle, or '2' to enter your own puzzle.\n")
@@ -16,7 +23,7 @@ def get_puzzle_input():
 
 def main():
     puzzle = []
-    
+
     welcome_message()
     
     choice = input("Enter choice (1 for default, 2 for custom): ")
@@ -29,8 +36,7 @@ def main():
         print("Invalid choice!")
         return
 
-    for row in puzzle:
-        print(" ".join(map(str, row)))
+    print_puzzle(puzzle)
 
 if __name__ == "__main__":
     main()
