@@ -1,13 +1,7 @@
 #file
 
 #imports here
-
-def print_puzzle(puzzle):
-    for tile in range(len(puzzle)):
-        print(puzzle[tile])
-        if (tile % 3 == 0):
-            print()
-    print()
+from puzzle import *
 
 def welcome_message():
     print(f"Welcome to Ram and Samyak 8 puzzle solver.")
