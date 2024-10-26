@@ -31,7 +31,7 @@ def main():
         print("Invalid choice!")
         return
 
-    problem = Problem(3, puzzle, uniform_cost_heuristic)
+    problem = Problem(8, puzzle, uniform_cost_heuristic)
 
     print("\nInitial State:")
     print(problem.get_initial_state())

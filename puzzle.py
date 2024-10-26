@@ -4,6 +4,7 @@ class Node:
         self.state = state
         
         self.cutoff = cutoff
+        self.max_len = len(state)
         self.score = score_func(state)
 
     # for nonstandard heap comparison
@@ -20,16 +21,16 @@ class Node:
         return result
 
 class Problem:
-    def __init__(self, cutoff: int, initial_state: list, heuristic: callable) -> None:
+    def __init__(self, puzzle_type: int, initial_state: list, heuristic: callable) -> None:
         # row width
-        self.cutoff = cutoff
-              
+        self.cutoff = int((puzzle_type + 1)**(0.5))
+
         # heuristic function
         self.heuristic = heuristic
 
         # states
-        self.initial_state = Node(cutoff, initial_state, heuristic)
-        self.goal_state = Node(cutoff, [(i + 1) % (cutoff**2) for i in range(cutoff**2)], heuristic)
+        self.initial_state = Node(self.cutoff, initial_state, heuristic)
+        self.goal_state = Node(self.cutoff, [(i + 1) % (self.cutoff**2) for i in range(self.cutoff**2)], heuristic)
     
     def get_initial_state(self):
         return self.initial_state
