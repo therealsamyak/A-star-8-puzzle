@@ -6,9 +6,11 @@ class Node:
         self.cutoff = cutoff
         self.score = score_func(state)
 
+    # for nonstandard heap comparison
     def __lt__(self, other: 'Node'):
         return self.score < other.score
     
+    # so we can print(Node) directly
     def __repr__(self):
         result = ""
         for tile in range(len(self.state)):
