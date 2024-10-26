@@ -2,6 +2,7 @@
 
 #imports here
 from puzzle import *
+from util import *
 
 def welcome_message():
     print(f"Welcome to Ram and Samyak 8 puzzle solver.")
@@ -30,7 +31,13 @@ def main():
         print("Invalid choice!")
         return
 
-    print_puzzle(puzzle)
+    problem = Problem(3, puzzle, uniform_cost_heuristic)
+
+    print("\nInitial State:")
+    print(problem.get_initial_state())
+    
+    print("\nGoal State:")
+    print(problem.get_goal_state())
 
 if __name__ == "__main__":
     main()
