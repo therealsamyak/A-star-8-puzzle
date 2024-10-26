@@ -4,3 +4,8 @@ def print_puzzle(puzzle):
         if ((tile - 2) % 3 == 0):
             print()
     print()
+
+
+class Problem:
+    def __init__(self) -> None:
+        pass
