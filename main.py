@@ -15,6 +15,8 @@ def get_puzzle_input():
     return puzzle
 
 def main():
+    puzzle = []
+    
     welcome_message()
     
     choice = input("Enter choice (1 for default, 2 for custom): ")
