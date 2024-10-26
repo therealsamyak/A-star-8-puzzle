@@ -1,6 +1,3 @@
-#file
-
-#imports here
 from puzzle import *
 from util import *
 
