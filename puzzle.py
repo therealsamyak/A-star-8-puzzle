@@ -53,3 +53,7 @@ class Problem:
 
     def get_goal_state(self):
         return self.goal_state
+    
+    def ValidMoves(self, node: Node) -> list:
+        # Find the empty tile's (0) position in the state array
+        zero_index = node.state.index(0)
