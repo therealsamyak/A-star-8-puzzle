@@ -35,7 +35,7 @@ class Node:
         return self.state == other.state
 
     def __hash__(self) -> int:
-        return hash(self.state)
+        return hash(tuple(self.state))
 
     # so we can print(Node) directly
     def __repr__(self) -> str:
@@ -51,48 +51,48 @@ class Node:
 
     def valid_moves(self) -> list:
         possibleMoves = []
-        
+
         zero_index = self.state.index(0)
-        
-        if (zero_index + self.cutoff) < self.cutoff ** 2:
+
+        if (zero_index + self.cutoff) < self.cutoff**2:
             # Create a copy of the current state to modify for this move
-            new_state = self.state[:]           
+            new_state = self.state[:]
             # Swap the zero tile with the tile in the target position (move down)
             new_state[zero_index], new_state[zero_index + self.cutoff] = (
                 new_state[zero_index + self.cutoff],
-                new_state[zero_index]
+                new_state[zero_index],
             )
             possibleMoves.append(new_state)
 
         if (zero_index - self.cutoff) >= 0:
             # Create a copy of the current state to modify for this move
-            new_state = self.state[:]           
+            new_state = self.state[:]
             # Swap the zero tile with the tile in the target position (move up)
             new_state[zero_index], new_state[zero_index - self.cutoff] = (
                 new_state[zero_index - self.cutoff],
-                new_state[zero_index]
+                new_state[zero_index],
             )
             possibleMoves.append(new_state)
 
         if (zero_index % self.cutoff) != 0:
             # Create a copy of the current state to modify for this move
-            new_state = self.state[:]           
+            new_state = self.state[:]
             # Swap the zero tile with the tile in the target position (move left)
             new_state[zero_index], new_state[zero_index - 1] = (
                 new_state[zero_index - 1],
-                new_state[zero_index]
+                new_state[zero_index],
             )
             possibleMoves.append(new_state)
 
         if (zero_index % self.cutoff) != (self.cutoff - 1):
             # Create a copy of the current state to modify for this move
             new_state = self.state[:]
-            
+
             # Swap the zero tile with the tile in the target position (move right)
             new_state[zero_index], new_state[zero_index + 1] = (
                 new_state[zero_index + 1],
-                new_state[zero_index]
-            )           
+                new_state[zero_index],
+            )
             # Add the new state to possible moves
             possibleMoves.append(new_state)
 
@@ -125,7 +125,7 @@ class Problem:
         self.max_queue_length = 0
 
         if not self.solve():
-            raise ValueError(f"No solution possible.")
+            print("No Solution Possible!")
 
     def get_initial_state(self) -> Node:
         return self.initial_state
@@ -147,14 +147,20 @@ class Problem:
             print()
 
     def solve(self) -> bool:
-
         start = time()
-        frontier = PriorityQueue([self.initial_state])
+
+        # priority queue
+        frontier = PriorityQueue()
+        frontier.put(self.initial_state)
+        frontier_set = set()
+        frontier_set.add(self.initial_state)
+
+        # explored set
         visited = set()
-        depth = 0
 
         while not frontier.empty():
             curr_state: Node = frontier.get()
+            frontier_set.remove(curr_state)
 
             # save solution path if solution found & leave
             if curr_state == self.goal_state:
@@ -163,19 +169,21 @@ class Problem:
                 return True
 
             visited.add(curr_state)
-            depth += 1
 
             # GENERATE CHILDREN AND ADD THEM TO FRONTIER IF NOT IN FRONTIER OR EXPLORABLE SET ALREADY
             for move_state in curr_state.valid_moves():
                 child_node = Node(
-                    curr_state.depth + 1, 
-                    self.cutoff, 
-                    move_state, 
-                    self.heuristic, 
-                    curr_state
+                    curr_state.depth,
+                    self.cutoff,
+                    move_state,
+                    self.heuristic,
+                    curr_state,
                 )
-                if child_node not in frontier:
+                if child_node not in frontier_set and child_node not in visited:
                     frontier.put(child_node)
+                    frontier_set.add(child_node)
+
+                frontier.join()
 
         if frontier.empty():
             return False
