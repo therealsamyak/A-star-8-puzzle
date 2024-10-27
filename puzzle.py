@@ -135,11 +135,11 @@ class Problem:
 
     def backtrack(self, node: Node) -> None:
         self.solution_path.clear()
-        while node.parent != None:
+        while node is not None:
             self.solution_path.append(node)
             node = node.parent
 
-        self.solution_path = self.solution_path[::-1]
+        self.solution_path.reverse()
 
     def print_solution(self) -> None:
         for state in self.solution_path:
