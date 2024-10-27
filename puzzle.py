@@ -25,7 +25,6 @@ class Node:
         self.depth = depth
         self.heuristic_score = score_func(state)
         self.cutoff = cutoff
-        self.max_len = len(state)
         self.score = depth + self.heuristic_score(state)
 
     # need to override operators so they are compatible with set() and PriorityQueue()
@@ -49,10 +48,11 @@ class Node:
 
     def get_state(self):
         return self.state
-    
+
     def ValidMoves(self) -> list:
         # Find the empty tile's (0) position in the state array
         zero_index = self.state.index(0)
+
 
 class Problem:
     def __init__(
