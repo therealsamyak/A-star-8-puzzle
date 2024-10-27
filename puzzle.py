@@ -49,7 +49,7 @@ class Node:
     def get_state(self):
         return self.state
 
-    def ValidMoves(self) -> list:
+    def valid_moves(self) -> list:
         possibleMoves = []
         
         zero_index = self.state.index(0)
@@ -166,7 +166,7 @@ class Problem:
             depth += 1
 
             # GENERATE CHILDREN AND ADD THEM TO FRONTIER IF NOT IN FRONTIER OR EXPLORABLE SET ALREADY
-            for move_state in curr_state.ValidMoves():
+            for move_state in curr_state.valid_moves():
                 child_node = Node(
                     curr_state.depth + 1, 
                     self.cutoff, 
