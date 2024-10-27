@@ -26,7 +26,7 @@ class Node:
         self.heuristic_score = score_func(state)
         self.cutoff = cutoff
         self.max_len = len(state)
-        self.score = depth + score_func(state)
+        self.score = depth + self.heuristic_score(state)
 
     # need to override operators so they are compatible with set() and PriorityQueue()
     def __lt__(self, other: "Node") -> bool:
@@ -37,10 +37,6 @@ class Node:
 
     def __hash__(self) -> int:
         return hash(self.state)
-
-    # state comparison
-    def isGoal(self, goal_state: "Node") -> bool:
-        return self.state == goal_state.get_state()
 
     # so we can print(Node) directly
     def __repr__(self) -> str:
@@ -117,12 +113,13 @@ class Problem:
             curr_state: Node = frontier.get()
 
             # save solution path if solution found & leave
-            if curr_state.isGoal(self.goal_state):
+            if curr_state == self.goal_state:
                 self.time_taken = time() - start
                 self.backtrack(curr_state)
                 return True
 
             visited.add(curr_state)
+            depth += 1
 
             # GENERATE CHILDREN AND ADD THEM TO FRONTIER IF NOT IN FRONTIER OR EXPLORABLE SET ALREADY
 
