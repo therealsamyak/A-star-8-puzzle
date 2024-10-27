@@ -92,7 +92,7 @@ class Problem:
             print(state)
             print()
 
-    def solve(self) -> None:
+    def solve(self) -> bool:
         start = time()
         frontier = PriorityQueue([self.initial_state])
         visited = set()
@@ -105,7 +105,7 @@ class Problem:
             if curr_state.isGoal(self.goal_state):
                 self.time_taken = time() - start
                 self.backtrack(curr_state)
-                return
+                return True
 
             visited.add(curr_state)
 
