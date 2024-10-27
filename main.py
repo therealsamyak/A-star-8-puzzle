@@ -71,6 +71,9 @@ def main():
     print("\nGoal State:")
     print(problem.get_goal_state())
 
+    print("\nSolution")
+    problem.print_solution()
+
 
 if __name__ == "__main__":
     main()
