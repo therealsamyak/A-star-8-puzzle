@@ -155,12 +155,17 @@ class Problem:
         frontier_set = set()
         frontier_set.add(self.initial_state)
 
+        self.nodes_expanded += 1
+
         # explored set
         visited = set()
 
         while not frontier.empty():
+            self.max_queue_length = max(self.max_queue_length, frontier.qsize())
+
             curr_state: Node = frontier.get()
             frontier_set.remove(curr_state)
+            self.nodes_expanded += 1
 
             # save solution path if solution found & leave
             if curr_state == self.goal_state:
@@ -182,8 +187,6 @@ class Problem:
                 if child_node not in frontier_set and child_node not in visited:
                     frontier.put(child_node)
                     frontier_set.add(child_node)
-
-                frontier.join()
 
         if frontier.empty():
             return False
