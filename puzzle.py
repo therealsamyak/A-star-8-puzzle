@@ -133,6 +133,13 @@ class Problem:
     def get_goal_state(self) -> Node:
         return self.goal_state
 
+    def print_stats(self):
+        print(
+            f"To solve this problem, the search algorithm expanded a total of {self.nodes_expanded} nodes"
+        )
+        print(f"Max nodes in queue at any given time: {self.max_queue_length}")
+        print(f"Time taken to solve: " + str(self.time_taken))
+
     def backtrack(self, node: Node) -> None:
         self.solution_path.clear()
         while node is not None:
@@ -145,6 +152,9 @@ class Problem:
         for state in self.solution_path:
             print(state)
             print()
+            print()
+
+        self.print_stats()
 
     def solve(self) -> bool:
         start = time()
