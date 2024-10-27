@@ -167,6 +167,17 @@ class Problem:
             depth += 1
 
             # GENERATE CHILDREN AND ADD THEM TO FRONTIER IF NOT IN FRONTIER OR EXPLORABLE SET ALREADY
+            for move_state in curr_state.ValidMoves():
+                child_node = Node(
+                    curr_state.depth + 1, 
+                    self.cutoff, 
+                    move_state, 
+                    self.heuristic, 
+                    curr_state
+                )
+                if child_node not in visited:
+                    frontier.put(child_node)
+                    visited.add(child_node)
 
         if frontier.empty():
             return False
