@@ -50,8 +50,53 @@ class Node:
         return self.state
 
     def ValidMoves(self) -> list:
-        # Find the empty tile's (0) position in the state array
+        possibleMoves = []
+        
         zero_index = self.state.index(0)
+        
+        if (zero_index + self.cutoff) < self.cutoff ** 2:
+            # Create a copy of the current state to modify for this move
+            new_state = self.state[:]           
+            # Swap the zero tile with the tile in the target position (move down)
+            new_state[zero_index], new_state[zero_index + self.cutoff] = (
+                new_state[zero_index + self.cutoff],
+                new_state[zero_index]
+            )
+            possibleMoves.append(new_state)
+
+        if (zero_index - self.cutoff) >= 0:
+            # Create a copy of the current state to modify for this move
+            new_state = self.state[:]           
+            # Swap the zero tile with the tile in the target position (move up)
+            new_state[zero_index], new_state[zero_index - self.cutoff] = (
+                new_state[zero_index - self.cutoff],
+                new_state[zero_index]
+            )
+            possibleMoves.append(new_state)
+
+        if (zero_index % self.cutoff) != 0:
+            # Create a copy of the current state to modify for this move
+            new_state = self.state[:]           
+            # Swap the zero tile with the tile in the target position (move left)
+            new_state[zero_index], new_state[zero_index - 1] = (
+                new_state[zero_index - 1],
+                new_state[zero_index]
+            )
+            possibleMoves.append(new_state)
+
+        if (zero_index % self.cutoff) != (self.cutoff - 1):
+            # Create a copy of the current state to modify for this move
+            new_state = self.state[:]
+            
+            # Swap the zero tile with the tile in the target position (move right)
+            new_state[zero_index], new_state[zero_index + 1] = (
+                new_state[zero_index + 1],
+                new_state[zero_index]
+            )           
+            # Add the new state to possible moves
+            possibleMoves.append(new_state)
+
+        return possibleMoves
 
 
 class Problem:
