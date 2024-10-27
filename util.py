@@ -1,17 +1,14 @@
-from puzzle import Node
-
 puzzle_type = 8
 cutoff = int((puzzle_type + 1) ** (0.5))
 final_state = [(i + 1) % (cutoff**2) for i in range(cutoff**2)]
 
 
-def uniform_cost(current_state: "Node" = None) -> int:
+def uniform_cost(state: list = None) -> int:
     return 0
 
 
-def misplaced_tile(current_state: "Node") -> int:
+def misplaced_tile(state: list) -> int:
     incorrect_tiles = 0
-    state = current_state.get_state()
     for index in range(len(state)):
         if state[index] != final_state[index]:
             incorrect_tiles += 1
@@ -20,12 +17,10 @@ def misplaced_tile(current_state: "Node") -> int:
 
 
 def hypotenuse(x, y):
-    return (x**2, y**2) ** (0.5)
+    return (x**2 + y**2) ** (0.5)
 
 
-def euclidean_distance(current_state: "Node") -> int:
-    state = current_state.get_state()
-
+def euclidean_distance(state: list) -> int:
     state_mappings = {}
     final_state_mappings = {}
 
