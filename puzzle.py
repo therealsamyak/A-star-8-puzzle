@@ -68,6 +68,7 @@ class Problem:
         # states
         self.initial_state = Node(0, self.cutoff, initial_state, heuristic)
         self.goal_state = Node(
+            0,
             self.cutoff,
             [(i + 1) % (self.cutoff**2) for i in range(self.cutoff**2)],
             heuristic,
@@ -78,6 +79,8 @@ class Problem:
         self.nodes_expanded = 0
         self.time_taken = 0
         self.max_queue_length = 0
+
+        self.solve()
 
     def get_initial_state(self) -> Node:
         return self.initial_state
