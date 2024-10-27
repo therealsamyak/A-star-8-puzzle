@@ -102,7 +102,7 @@ class Problem:
             print()
 
     def solve(self) -> bool:
-        pass
+        return True
 
         start = time()
         frontier = PriorityQueue([self.initial_state])
