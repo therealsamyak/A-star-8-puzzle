@@ -1,27 +1,40 @@
 from queue import PriorityQueue
+from time import time
 
 
 class Node:
     def __init__(
-        self, cutoff: int, state: list, score_func: callable, parent: "Node" = None
+        self,
+        depth: int,
+        cutoff: int,
+        state: list,
+        score_func: callable,
+        parent: "Node" = None,
     ) -> None:
         self.parent = parent
         self.state = state
 
+        self.depth = depth
         self.cutoff = cutoff
         self.max_len = len(state)
-        self.score = score_func(state)
+        self.score = depth + score_func(state)
 
-    # score comparison
-    def __lt__(self, other: "Node"):
+    # need to override operators so they are compatible with set() and PriorityQueue()
+    def __lt__(self, other: "Node") -> bool:
         return self.score < other.score
+
+    def __eq__(self, other: "Node") -> bool:
+        return self.state == other.state
+
+    def __hash__(self) -> int:
+        return hash(self.state)
 
     # state comparison
     def isGoal(self, goal_state: "Node") -> bool:
         return self.state == goal_state.get_state()
 
     # so we can print(Node) directly
-    def __repr__(self):
+    def __repr__(self) -> str:
         result = ""
         for tile in range(len(self.state)):
             result += str(self.state[tile]) + " "
@@ -44,37 +57,59 @@ class Problem:
         self.heuristic = heuristic
 
         # states
-        self.initial_state = Node(self.cutoff, initial_state, heuristic)
+        self.initial_state = Node(0, self.cutoff, initial_state, heuristic)
         self.goal_state = Node(
             self.cutoff,
             [(i + 1) % (self.cutoff**2) for i in range(self.cutoff**2)],
             heuristic,
         )
 
-        # solution path
+        # solution
         self.solution_path = []
+        self.nodes_expanded = 0
+        self.time_taken = 0
+        self.max_queue_length = 0
 
-    def get_initial_state(self):
+    def get_initial_state(self) -> Node:
         return self.initial_state
 
-    def get_goal_state(self):
+    def get_goal_state(self) -> Node:
         return self.goal_state
 
     def ValidMoves(self, node: Node) -> list:
         # Find the empty tile's (0) position in the state array
         zero_index = node.state.index(0)
 
-    def backtrack(self, node: Node):
+    def backtrack(self, node: Node) -> None:
         while node.parent != None:
             self.solution_path.append(node)
             node = node.parent
 
         self.solution_path = self.solution_path[::-1]
 
-    def print_solution(self):
+    def print_solution(self) -> None:
         for state in self.solution_path:
             print(state)
             print()
 
-    def solve(self):
-        frontier = []
+    def solve(self) -> None:
+        start = time()
+        frontier = PriorityQueue([self.initial_state])
+        visited = set()
+        depth = 0
+
+        while not frontier.empty():
+            curr_state: Node = frontier.get()
+
+            # save solution path if solution found & leave
+            if curr_state.isGoal(self.goal_state):
+                self.time_taken = time() - start
+                self.backtrack(curr_state)
+                return
+
+            visited.add(curr_state)
+
+            # GENERATE CHILDREN AND ADD THEM TO FRONTIER IF NOT IN FRONTIER OR EXPLORABLE SET ALREADY
+
+        if frontier.empty():
+            return False
