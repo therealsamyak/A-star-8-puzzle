@@ -1,3 +1,4 @@
+from default_puzzles import *
 from puzzle import Problem
 from util import euclidian_distance, misplaced_tile, uniform_cost
 
@@ -22,9 +23,40 @@ def main():
     welcome_message()
 
     choice = input("Enter choice (1 for default, 2 for custom): ")
+
     if choice == "1":
-        puzzle = [1, 2, 3, 4, 8, 0, 7, 6, 5]  # default puzzle
-        print("\nUsing default puzzle:")
+        print("\nSelect a puzzle:")
+        print("1: Trivial Puzzle")
+        print("2: Very Easy Puzzle")
+        print("3: Easy Puzzle")
+        print("4: Doable Puzzle")
+        print("5: Oh Boy Puzzle")
+        print("6: Impossible Puzzle")
+
+        puzzle_choice = input("Enter your choice (1-6): ")
+
+        if puzzle_choice == "1":
+            puzzle = trivial_puzzle
+            print("\nUsing Trivial Puzzle:")
+        elif puzzle_choice == "2":
+            puzzle = very_easy_puzzle
+            print("\nUsing Very Easy Puzzle:")
+        elif puzzle_choice == "3":
+            puzzle = easy_puzzle
+            print("\nUsing Easy Puzzle:")
+        elif puzzle_choice == "4":
+            puzzle = doable_puzzle
+            print("\nUsing Doable Puzzle:")
+        elif puzzle_choice == "5":
+            puzzle = oh_boy_puzzle
+            print("\nUsing Oh Boy Puzzle:")
+        elif puzzle_choice == "6":
+            puzzle = impossible_puzzle
+            print("\nUsing Impossible Puzzle:")
+        else:
+            print("Invalid choice for puzzle!")
+            return
+
     elif choice == "2":
         puzzle = get_puzzle_input()
     else:
