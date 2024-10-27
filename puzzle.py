@@ -17,7 +17,7 @@ class Node:
             or len(state) != len(set(state))
             or any(value >= cutoff**2 for value in state)
         ):
-            raise ValueError(f"No solution possible.")
+            raise ValueError(f"Invalid Node arguments.")
 
         self.parent = parent
         self.state = state
@@ -79,7 +79,8 @@ class Problem:
         self.time_taken = 0
         self.max_queue_length = 0
 
-        self.solve()
+        if not self.solve():
+            raise ValueError(f"No solution possible.")
 
     def get_initial_state(self) -> Node:
         return self.initial_state
