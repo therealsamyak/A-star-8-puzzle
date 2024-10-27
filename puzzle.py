@@ -147,7 +147,6 @@ class Problem:
             print()
 
     def solve(self) -> bool:
-        return True
 
         start = time()
         frontier = PriorityQueue([self.initial_state])
@@ -175,9 +174,8 @@ class Problem:
                     self.heuristic, 
                     curr_state
                 )
-                if child_node not in visited:
+                if child_node not in frontier:
                     frontier.put(child_node)
-                    visited.add(child_node)
 
         if frontier.empty():
             return False
