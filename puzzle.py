@@ -25,7 +25,7 @@ class Node:
         self.depth = depth
         self.heuristic_score = score_func(state)
         self.cutoff = cutoff
-        self.score = depth + self.heuristic_score(state)
+        self.score = depth + self.heuristic_score
 
     # need to override operators so they are compatible with set() and PriorityQueue()
     def __lt__(self, other: "Node") -> bool:
