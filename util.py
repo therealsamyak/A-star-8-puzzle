@@ -19,6 +19,33 @@ def misplaced_tile(current_state: "Node") -> int:
     return incorrect_tiles
 
 
+def hypotenuse(x, y):
+    return (x**2, y**2) ** (0.5)
+
+
 def euclidian_distance(current_state: "Node") -> int:
-    # implement later
-    pass
+    state = current_state.get_state()
+
+    state_mappings = {}
+    final_state_mappings = {}
+
+    for index, value in enumerate(state):
+        x = index % cutoff
+        y = index // cutoff
+
+        state_mappings[value] = (x, y)
+
+    for index, value in enumerate(final_state):
+        x = index % cutoff
+        y = index // cutoff
+
+        final_state_mappings[value] = (x, y)
+
+    total_distance = 0
+    for value in state:
+        if value != 0:
+            curr_x, curr_y = state_mappings[value]
+            final_x, final_y = final_state_mappings[value]
+            total_distance += hypotenuse(curr_x - final_x, curr_y - final_y)
+
+    return total_distance
