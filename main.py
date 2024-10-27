@@ -1,5 +1,5 @@
-from puzzle import *
-from util import *
+from puzzle import Problem
+from util import euclidian_distance, misplaced_tile, uniform_cost
 
 
 def welcome_message():
@@ -31,7 +31,7 @@ def main():
         print("Invalid choice!")
         return
 
-    problem = Problem(8, puzzle, uniform_cost_heuristic)
+    problem = Problem(8, puzzle, uniform_cost)
 
     print("\nInitial State:")
     print(problem.get_initial_state())
