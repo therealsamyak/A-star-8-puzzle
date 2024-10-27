@@ -1,3 +1,6 @@
+from queue import PriorityQueue
+
+
 class Node:
     def __init__(
         self, cutoff: int, state: list, score_func: callable, parent: "Node" = None
@@ -48,12 +51,30 @@ class Problem:
             heuristic,
         )
 
+        # solution path
+        self.solution_path = []
+
     def get_initial_state(self):
         return self.initial_state
 
     def get_goal_state(self):
         return self.goal_state
-    
+
     def ValidMoves(self, node: Node) -> list:
         # Find the empty tile's (0) position in the state array
         zero_index = node.state.index(0)
+
+    def backtrack(self, node: Node):
+        while node.parent != None:
+            self.solution_path.append(node)
+            node = node.parent
+
+        self.solution_path = self.solution_path[::-1]
+
+    def print_solution(self):
+        for state in self.solution_path:
+            print(state)
+            print()
+
+    def solve(self):
+        frontier = []
