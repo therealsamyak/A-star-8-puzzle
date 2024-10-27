@@ -49,7 +49,10 @@ class Node:
 
     def get_state(self):
         return self.state
-
+    
+    def ValidMoves(self) -> list:
+        # Find the empty tile's (0) position in the state array
+        zero_index = self.state.index(0)
 
 class Problem:
     def __init__(
@@ -83,10 +86,6 @@ class Problem:
 
     def get_goal_state(self) -> Node:
         return self.goal_state
-
-    def ValidMoves(self, node: Node) -> list:
-        # Find the empty tile's (0) position in the state array
-        zero_index = node.state.index(0)
 
     def backtrack(self, node: Node) -> None:
         self.solution_path.clear()
