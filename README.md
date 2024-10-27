@@ -1,6 +1,6 @@
 # A-star-8-puzzle
 
-## How to Run
+## Instructions
 
 Clone this repository and navigate to its directory in the terminal.
 
