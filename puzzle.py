@@ -150,8 +150,11 @@ class Problem:
 
     def print_solution(self) -> None:
         for state in self.solution_path:
+            print(
+                f"Best state to expand with g(n) = {state.depth} and h(n) = {state.heuristic_score} is:"
+            )
             print(state)
-            print()
+            print("Expanding...")
             print()
 
         self.print_stats()
@@ -188,7 +191,7 @@ class Problem:
             # GENERATE CHILDREN AND ADD THEM TO FRONTIER IF NOT IN FRONTIER OR EXPLORABLE SET ALREADY
             for move_state in curr_state.valid_moves():
                 child_node = Node(
-                    curr_state.depth,
+                    curr_state.depth + 1,
                     self.cutoff,
                     move_state,
                     self.heuristic,
