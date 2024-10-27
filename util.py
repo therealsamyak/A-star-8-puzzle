@@ -23,7 +23,7 @@ def hypotenuse(x, y):
     return (x**2, y**2) ** (0.5)
 
 
-def euclidian_distance(current_state: "Node") -> int:
+def euclidean_distance(current_state: "Node") -> int:
     state = current_state.get_state()
 
     state_mappings = {}
