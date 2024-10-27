@@ -3,11 +3,6 @@ from puzzle import Problem
 from util import euclidean_distance, misplaced_tile, uniform_cost
 
 
-def welcome_message():
-    print(f"Welcome to Ram and Samyak 8 puzzle solver.")
-    print("Type '1' to use a default puzzle, or '2' to enter your own puzzle.\n")
-
-
 def get_puzzle_input():
     puzzle = []
     print("\nEnter your puzzle, use a zero to represent the blank")
@@ -19,8 +14,10 @@ def get_puzzle_input():
 
 def main():
     puzzle = []
+    algorithm = None
 
-    welcome_message()
+    print(f"Welcome to Ram and Samyak 8 puzzle solver.")
+    print("Type '1' to use a default puzzle, or '2' to enter your own puzzle.\n")
 
     choice = input("Enter choice (1 for default, 2 for custom): ")
 
@@ -69,7 +66,6 @@ def main():
     print("3: A* with the Euclidean distance heuristic")
 
     algo_choice = input("Enter your choice (1-3): ")
-
     if algo_choice == "1":
         algorithm = uniform_cost
         print("\nUsing Uniform Cost Search.")
@@ -83,13 +79,7 @@ def main():
         print("Invalid choice for algorithm!")
         return
 
-    problem = Problem(8, puzzle, uniform_cost)
-
-    print("\nInitial State:")
-    print(problem.get_initial_state())
-
-    print("\nGoal State:")
-    print(problem.get_goal_state())
+    problem = Problem(8, puzzle, algorithm)
 
     print("\nSolution")
     problem.print_solution()
