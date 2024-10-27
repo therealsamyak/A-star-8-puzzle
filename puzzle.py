@@ -11,10 +11,19 @@ class Node:
         score_func: callable,
         parent: "Node" = None,
     ) -> None:
+
+        if (
+            len(state) != cutoff**2
+            or len(state) != len(set(state))
+            or any(value >= cutoff**2 for value in state)
+        ):
+            raise ValueError(f"No solution possible.")
+
         self.parent = parent
         self.state = state
 
         self.depth = depth
+        self.heuristic_score = score_func(state)
         self.cutoff = cutoff
         self.max_len = len(state)
         self.score = depth + score_func(state)
@@ -81,6 +90,7 @@ class Problem:
         zero_index = node.state.index(0)
 
     def backtrack(self, node: Node) -> None:
+        self.solution_path.clear()
         while node.parent != None:
             self.solution_path.append(node)
             node = node.parent
@@ -93,6 +103,8 @@ class Problem:
             print()
 
     def solve(self) -> bool:
+        pass
+
         start = time()
         frontier = PriorityQueue([self.initial_state])
         visited = set()
