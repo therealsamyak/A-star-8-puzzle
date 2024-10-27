@@ -1,6 +1,6 @@
 from default_puzzles import *
 from puzzle import Problem
-from util import euclidian_distance, misplaced_tile, uniform_cost
+from util import euclidean_distance, misplaced_tile, uniform_cost
 
 
 def welcome_message():
@@ -61,6 +61,26 @@ def main():
         puzzle = get_puzzle_input()
     else:
         print("Invalid choice!")
+        return
+
+    print("\nEnter the search algorithm you would like to use:")
+    print("1: Uniform Cost Search")
+    print("2: A* with the Misplaced Tile heuristic")
+    print("3: A* with the Euclidean distance heuristic")
+
+    algo_choice = input("Enter your choice (1-3): ")
+
+    if algo_choice == "1":
+        algorithm = uniform_cost
+        print("\nUsing Uniform Cost Search.")
+    elif algo_choice == "2":
+        algorithm = misplaced_tile
+        print("\nUsing A* with the Misplaced Tile heuristic.")
+    elif algo_choice == "3":
+        algorithm = euclidean_distance
+        print("\nUsing A* with the Euclidean distance heuristic.")
+    else:
+        print("Invalid choice for algorithm!")
         return
 
     problem = Problem(8, puzzle, uniform_cost)
