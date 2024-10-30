@@ -53,6 +53,7 @@ class Problem:
     def print_solution(self) -> None:
         if not self.solvable:
             print("No solution possible!")
+            print()
             self.print_stats()
             return
 
@@ -109,4 +110,5 @@ class Problem:
                     frontier_set.add(child_node)
 
         if frontier.empty():
+            self.time_taken = time() - start
             return False
