@@ -3,7 +3,7 @@ from puzzle import Problem
 from util import euclidean_distance, misplaced_tile, uniform_cost
 
 
-def get_puzzle_input():
+def get_puzzle_input() -> list:
     puzzle = []
     print("\nEnter your puzzle, use a zero to represent the blank")
     for i in range(1, 4):
@@ -12,7 +12,7 @@ def get_puzzle_input():
     return puzzle
 
 
-def main():
+def main() -> None:
     puzzle = []
     algorithm = None
 
