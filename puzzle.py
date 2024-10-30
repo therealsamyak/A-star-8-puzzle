@@ -38,9 +38,7 @@ class Problem:
         return self.goal_state
 
     def print_stats(self):
-        print(
-            f"To solve this problem, the search algorithm expanded a total of {self.nodes_expanded} nodes"
-        )
+        print(f"The search algorithm expanded a total of {self.nodes_expanded} nodes")
         print(f"Max nodes in queue at any given time: {self.max_queue_length}")
         print(f"Time taken to solve: " + str(self.time_taken))
 
@@ -55,6 +53,7 @@ class Problem:
     def print_solution(self) -> None:
         if not self.solvable:
             print("No solution possible!")
+            self.print_stats()
             return
 
         for state in self.solution_path:
