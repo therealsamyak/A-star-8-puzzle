@@ -82,6 +82,7 @@ def main():
     problem = Problem(8, puzzle, algorithm)
 
     print("\nSolution: ")
+    print()
     problem.print_solution()
 
 
