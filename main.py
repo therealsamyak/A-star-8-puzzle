@@ -2,11 +2,12 @@ from default_puzzles import *
 from puzzle import Problem
 from util import euclidean_distance, misplaced_tile, uniform_cost
 
+puzzle_type = 8
 
 def get_puzzle_input() -> list:
     puzzle = []
     print("\nEnter your puzzle, use a zero to represent the blank")
-    for i in range(1, 4):
+    for i in range(1, (puzzle_type + 1)**(0.5)):
         row = input(f"Enter row {i}, use space or tabs between numbers: ")
         puzzle.extend([int(x) for x in row.split()])
     return puzzle
@@ -79,7 +80,7 @@ def main() -> None:
         print("Invalid choice for algorithm!")
         return
 
-    problem = Problem(8, puzzle, algorithm)
+    problem = Problem(puzzle_type, puzzle, algorithm)
 
     print("\nSolution: ")
     print()
