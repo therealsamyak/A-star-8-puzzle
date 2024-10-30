@@ -42,7 +42,7 @@ class Node:
                 result += "\n"
         return result
 
-    def get_state(self):
+    def get_state(self) -> list:
         return self.state
 
     def valid_moves(self) -> list:

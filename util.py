@@ -16,7 +16,7 @@ def misplaced_tile(state: list) -> int:
     return incorrect_tiles
 
 
-def hypotenuse(x, y):
+def hypotenuse(x, y) -> float:
     return (x**2 + y**2) ** (0.5)
 
 
