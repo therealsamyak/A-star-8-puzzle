@@ -58,12 +58,18 @@ class Problem:
             return
 
         for state in self.solution_path:
-            print(
-                f"Best state to expand with g(n) = {state.depth} and h(n) = {state.heuristic_score} is:"
-            )
-            print(state)
-            print("Expanding...")
-            print()
+            if (state == self.initial_state):
+                print("Start State: ")
+                print(state)
+                print("Expanding...")
+                print()
+            else:
+                print(
+                    f"Best state to expand with g(n) = {state.depth} and h(n) = {state.heuristic_score} is:"
+                )
+                print(state)
+                print("Expanding...")
+                print()
 
         self.print_stats()
 
