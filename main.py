@@ -7,7 +7,7 @@ puzzle_type = 8
 def get_puzzle_input() -> list:
     puzzle = []
     print("\nEnter your puzzle, use a zero to represent the blank")
-    for i in range(1, (puzzle_type + 1)**(0.5)):
+    for i in range(1, int((puzzle_type + 1)**(0.5))):
         row = input(f"Enter row {i}, use space or tabs between numbers: ")
         puzzle.extend([int(x) for x in row.split()])
     return puzzle
