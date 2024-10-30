@@ -30,6 +30,7 @@ def main() -> None:
         print("4: Doable Puzzle")
         print("5: Oh Boy Puzzle")
         print("6: Impossible Puzzle")
+        print("7: 15-puzzle (MAKE SURE PUZZLE_TYPE CHANGED)")
 
         puzzle_choice = input("Enter your choice (1-6): ")
 
@@ -51,6 +52,9 @@ def main() -> None:
         elif puzzle_choice == "6":
             puzzle = impossible_puzzle
             print("\nUsing Impossible Puzzle:")
+        elif puzzle_choice == "7":
+            puzzle = fifteen_puzzle
+            print("\nUsing 15-puzzle:")
         else:
             print("Invalid choice for puzzle!")
             return
